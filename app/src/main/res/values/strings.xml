@@ -1,0 +1,10 @@
+<resources>
+    <string name="application_name_russian">Погодное приложение</string>
+    <string name="head_text_russian">Какая у вас погода?</string>
+    <string name="city_name_hint_russian">Где вы сейчас?</string>
+    <string name="action_button_russian">Узнать!</string>
+    <string name="weather_result_hint_russian">Результат</string>
+    <string name="error_empty_string_russian">Задана пустая строка!</string>
+    <string name="error_incorrect_string_russian">Некорректный ввод данных!</string>
+    <string name="waiting_for_result_russian">Ожидание результата ...</string>
+</resources>
