@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
             super.onPreExecute();
             resultView.setText(R.string.waiting_for_result_russian);
+            actionButton.setVisibility(View.INVISIBLE);
 
         }
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                 InputStream inputStream = urlConnection.getInputStream();
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuffer = new StringBuilder();
+                StringBuffer stringBuffer = new StringBuffer();
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) stringBuffer.append(line).append("\n");
@@ -82,30 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject jsonObject = new JSONObject(result);
 
-                    String windDirection;
-                    if (jsonObject.getJSONObject("wind").getInt("deg") >= 30 && jsonObject.getJSONObject("wind").getInt("deg") < 60)
-                        windDirection = "северо-восточный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 60 && jsonObject.getJSONObject("wind").getInt("deg") < 120)
-                        windDirection = "восточный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 120 && jsonObject.getJSONObject("wind").getInt("deg") < 150)
-                        windDirection = "юго-восточный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 150 && jsonObject.getJSONObject("wind").getInt("deg") < 210)
-                        windDirection = "южный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 210 && jsonObject.getJSONObject("wind").getInt("deg") < 240)
-                        windDirection = "юго-западный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 240 && jsonObject.getJSONObject("wind").getInt("deg") < 300)
-                        windDirection = "западный";
-                    else if (jsonObject.getJSONObject("wind").getInt("deg") >= 300 && jsonObject.getJSONObject("wind").getInt("deg") < 330)
-                        windDirection = "северо-западный";
-                    else  windDirection = "северный";
-
                     resultView.setText("Сейчас " + jsonObject.getJSONArray("weather").getJSONObject(0).getString("description") +
-                            "\n\nТемпература " + Math.round(Math.floor(jsonObject.getJSONObject("main").getDouble("temp_min"))) +
-                            " / " + Math.round(Math.ceil(jsonObject.getJSONObject("main").getDouble("temp_max"))) +
+                            "\n\nТемпература от " + Math.round(Math.floor(jsonObject.getJSONObject("main").getDouble("temp_min"))) +
+                            " до " + Math.round(Math.ceil(jsonObject.getJSONObject("main").getDouble("temp_max"))) +
                             " °C\nОщущается как " + Math.round(jsonObject.getJSONObject("main").getDouble("feels_like")) +
                             " °C\n\n" +
-                            "Ветер " + windDirection + "\nСкорость " +  Math.round(Math.floor(jsonObject.getJSONObject("wind").getDouble("speed"))) +
-                            " м/с\nПорывы до " + Math.round(Math.ceil(jsonObject.getJSONObject("wind").getDouble("gust"))) +
+                            "Скорость ветра " +  Math.round(Math.floor(jsonObject.getJSONObject("wind").getDouble("speed"))) +
                             " м/с\n\n" +
                             "Атмосферное давление "+ Math.round(jsonObject.getJSONObject("main").getDouble("pressure")) +
                             " мм\nОтносительная влажность "+ Math.round(jsonObject.getJSONObject("main").getDouble("humidity")) +
@@ -117,12 +101,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            actionButton.setVisibility(View.VISIBLE);
+
         }
 
     }
 
     private EditText cityName;
     private TextView resultView;
+    private  Button actionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,15 +118,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         cityName = findViewById(R.id.cityName);
-        Button actionButton = findViewById(R.id.actionButton);
+        actionButton = findViewById(R.id.actionButton);
         resultView = findViewById(R.id.resultsView);
 
         actionButton.setOnClickListener(v -> {
 
             if (cityName.getText().toString().trim().equals("")) resultView.setText(R.string.error_empty_string_russian);
-            else new JSONRequest().execute("https://api.openweathermap.org/data/2.5/weather?q="+
-                    cityName.getText().toString().trim()+
-                    "&appid=69dec8d6167e28db082402cc92ffc895&units=metric&lang=ru");
+            else new JSONRequest().execute("https://api.openweathermap.org/data/2.5/weather?q="+cityName.getText().toString().trim()+"&appid=69dec8d6167e28db082402cc92ffc895&units=metric&lang=ru");
 
         });
 

@@ -1,0 +1,32 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color dark_grey
+color grey
+color light_grey
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id actionButton
+id cityName
+id headText
+id resultsView
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string action_button_russian
+string application_name_russian
+string city_name_hint_russian
+string error_empty_string_russian
+string error_incorrect_string_russian
+string head_text_russian
+string waiting_for_result_russian
+string weather_result_hint_russian
+style Theme.WeatherApplication
+xml backup_rules
+xml data_extraction_rules

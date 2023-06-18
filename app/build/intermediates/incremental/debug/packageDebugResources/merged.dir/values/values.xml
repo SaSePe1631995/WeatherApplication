@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="dark_grey">#343434</color>
+    <color name="grey">#434343</color>
+    <color name="light_grey">#7f7679</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="action_button_russian">Узнать!</string>
+    <string name="application_name_russian">Погодное приложение</string>
+    <string name="city_name_hint_russian">Где вы сейчас?</string>
+    <string name="error_empty_string_russian">Задана пустая строка!</string>
+    <string name="error_incorrect_string_russian">Некорректный ввод данных!</string>
+    <string name="head_text_russian">Какая у вас погода?</string>
+    <string name="waiting_for_result_russian">Ожидание результата ...</string>
+    <string name="weather_result_hint_russian">Результат</string>
+    <style name="Theme.WeatherApplication" parent="Theme.AppCompat.Light.NoActionBar">
+        
+        <item name="colorPrimary">@color/light_grey</item>
+        <item name="colorPrimaryDark">@color/light_grey</item>
+        <item name="colorAccent">@color/light_grey</item>
+        
+    </style>
+</resources>
